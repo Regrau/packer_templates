@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE profile>
+<profile 
+  xmlns="http://www.suse.com/1.0/yast2ns" 
+  xmlns:config="http://www.suse.com/1.0/configns">
+  <partitioning config:type="list">
+    <drive>
+      <use>all</use>
+      <partition>
+        <mount>/</mount>
+        <size>8G</size>
+        <create config:type="boolean">true</create>
+        <format config:type="boolean">true</format>
+        <filesystem config:type="symbol">ext4</filesystem>
+      </partition>
+      <partition>
+        <mount>/</mount>
+        <size>2G</size>
+        <create config:type="boolean">true</create>
+        <filesystem config:type="symbol">swap</filesystem>
+      </partition>
+    </drive>
+  </partitioning>
+  <timezone>
+    <hwclock>UTC</hwclock>
+    <timezone>Europe/Berlin</timezone>
+  </timezone>
+  <keyboard>
+    <keymap>english-us</keymap>
+  </keyboard>
+  <software>
+    <install_recommended config:type="boolean">
+      false
+    </install_recommended>
+    <patterns config:type="list">
+      <pattern>base</pattern>
+    </patterns>
+    <packages config:type="list">
+      <package>ansible</package>
+    </packages>
+    <do_online_update config:type="boolean">true</do_online_update>
+  </software>
+  <users config:type="list">
+    <user>
+      <encrypted config:type="boolean">false</encrypted>
+      <username>root</username>
+      <user_password>packer</user_password>
+    </user>
+  </users>
+  <services-manager>
+  <default_target>multi-user</default_target>
+  <services>
+    <enable config:type="list">
+      <service>sshd</service>
+    </enable>
+  </services>
+</services-manager>
+</profile>
