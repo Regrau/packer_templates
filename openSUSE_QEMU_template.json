@@ -15,6 +15,9 @@
     [
         {
             "type": "qemu"
+	    , "qemuargs":[
+		    ["-m", "1024M"]
+	    ]
             , "iso_url": "{{user `iso_url`}}"
             , "iso_checksum": "{{user `iso_checksum`}}"
             , "iso_checksum_type": "{{user `iso_checksum_type`}}"
@@ -46,7 +49,7 @@
                 "<esc><enter><wait>"
                 , "linux netdevice=eth0 netsetup=dhcp<wait>"
                 , "install=http://download.opensuse.org/distribution/leap/42.3/repo/oss/ <wait>"
-                , "lang=en_US autoyast=http://{{ .HTTPIP}}:{{ .HTTPPort}}/autoinst.xml<wait>"
+                , "lang=en_US autoyast2=http://{{ .HTTPIP}}:{{ .HTTPPort}}/autoinst.xml <wait>"
                 , "textmode=1<wait>"
                 , "<enter><wait>"
             ]

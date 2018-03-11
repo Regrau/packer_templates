@@ -1,33 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE profile>
-<profile 
-  xmlns="http://www.suse.com/1.0/yast2ns" 
-  xmlns:config="http://www.suse.com/1.0/configns">
+<profile xmlns="http://www.suse.com/1.0/yast2ns" xmlns:config="http://www.suse.com/1.0/configns">
+
+  <general>
+    <mode>
+      <confirm config:type="boolean">false</confirm>
+    </mode>
+  </general>
+
   <partitioning config:type="list">
     <drive>
+      <device>/dev/vda</device>
       <use>all</use>
-      <partition>
-        <mount>/</mount>
-        <size>8G</size>
-        <create config:type="boolean">true</create>
-        <format config:type="boolean">true</format>
-        <filesystem config:type="symbol">ext4</filesystem>
-      </partition>
-      <partition>
-        <mount>/</mount>
-        <size>2G</size>
-        <create config:type="boolean">true</create>
-        <filesystem config:type="symbol">swap</filesystem>
-      </partition>
+      <partitions config:type="list">
+        <partition>
+          <initialize config:type="boolean">true</initialize>
+          <mount>/</mount>
+          <size>9G</size>
+          <create config:type="boolean">true</create>
+          <format config:type="boolean">true</format>
+          <filesystem config:type="symbol">ext4</filesystem>
+        </partition>
+        <partition>
+          <mount>swap</mount>
+          <size>1G</size>
+          <create config:type="boolean">true</create>
+          <filesystem config:type="symbol">swap</filesystem>
+        </partition>
+      </partitions>
     </drive>
   </partitioning>
+
   <timezone>
     <hwclock>UTC</hwclock>
     <timezone>Europe/Berlin</timezone>
   </timezone>
+
   <keyboard>
     <keymap>english-us</keymap>
   </keyboard>
+
   <software>
     <install_recommended config:type="boolean">
       false
@@ -40,6 +52,7 @@
     </packages>
     <do_online_update config:type="boolean">true</do_online_update>
   </software>
+
   <users config:type="list">
     <user>
       <encrypted config:type="boolean">false</encrypted>
@@ -47,12 +60,13 @@
       <user_password>packer</user_password>
     </user>
   </users>
+
   <services-manager>
-  <default_target>multi-user</default_target>
-  <services>
-    <enable config:type="list">
-      <service>sshd</service>
-    </enable>
-  </services>
-</services-manager>
+    <default_target>multi-user</default_target>
+    <services>
+      <enable config:type="list">
+        <service>sshd</service>
+      </enable>
+    </services>
+  </services-manager>
 </profile>
