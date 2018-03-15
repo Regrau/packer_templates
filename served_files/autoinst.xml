@@ -8,19 +8,66 @@
     </mode>
   </general>
 
+<bootloader>
+    <global>
+      <append> resume=/dev/vda1 splash=silent quiet showopts</append>
+      <append_failsafe>showopts apm=off noresume edd=off powersaved=off nohz=off highres=off processor.max_cstate=1 nomodeset x11failsafe</append_failsafe>
+      <default>openSUSE Leap 42.3</default>
+      <distributor>openSUSE Leap 42.3</distributor>
+      <gfxbackground>/boot/grub2/themes/openSUSE/background.png</gfxbackground>
+      <gfxmode>auto</gfxmode>
+      <gfxtheme>/boot/grub2/themes/openSUSE/theme.txt</gfxtheme>
+      <hiddenmenu>false</hiddenmenu>
+      <lines_cache_id>0</lines_cache_id>
+      <os_prober>true</os_prober>
+      <terminal>gfxterm</terminal>
+      <timeout config:type="integer">5</timeout>
+    </global>
+
+    <loader_type>grub2</loader_type>
+</bootloader>
+
+  <report>
+    <errors>
+      <show config:type="boolean">true</show>
+      <timeout config:type="integer">10</timeout>
+      <log config:type="boolean">true</log>
+    </errors>
+
+    <warnings>
+      <show config:type="boolean">true</show>
+      <timeout config:type="integer">10</timeout>
+      <log config:type="boolean">true</log>
+    </warnings>
+
+    <messages>
+      <show config:type="boolean">true</show>
+      <timeout config:type="integer">10</timeout>
+      <log config:type="boolean">true</log>
+    </messages>
+    
+    <yesno_messages>
+      <show config:type="boolean">true</show>
+      <timeout config:type="integer">10</timeout>
+      <log config:type="boolean">true</log>
+    </yesno_messages>
+  </report>
+
   <partitioning config:type="list">
     <drive>
       <device>/dev/vda</device>
       <use>all</use>
       <partitions config:type="list">
+
         <partition>
           <initialize config:type="boolean">true</initialize>
           <mount>/</mount>
-          <size>9G</size>
+          <size>8.98G</size>
           <create config:type="boolean">true</create>
           <format config:type="boolean">true</format>
           <filesystem config:type="symbol">ext4</filesystem>
         </partition>
+
         <partition>
           <mount>swap</mount>
           <size>1G</size>
@@ -28,8 +75,36 @@
           <filesystem config:type="symbol">swap</filesystem>
         </partition>
       </partitions>
+
     </drive>
   </partitioning>
+
+  <networking>
+    <dhcp_options>
+      <dhclient_client_id/>
+      <dhclient_hostname_option>AUTO</dhclient_hostname_option>
+    </dhcp_options>
+
+    <dns>
+      <hostname>kvm-openSUSE-Leap</hostname>
+      <domain>tesdomain.com</domain>
+
+      <resolv_conf_policy>auto</resolv_conf_policy>
+
+      <dhcp_hostname config:type="boolean">false</dhcp_hostname>
+      <write_hostname config:type="boolean">false</write_hostname>
+    </dns>
+
+    <interfaces config:type="list">
+      <interface>
+        <bootproto>dhcp</bootproto>
+        <device>eth0</device>
+        <startmode>auto</startmode>
+        <usercontrol>no</usercontrol>
+      </interface>
+    </interfaces>
+  </networking>
+
 
   <timezone>
     <hwclock>UTC</hwclock>
@@ -41,14 +116,30 @@
   </keyboard>
 
   <software>
-    <install_recommended config:type="boolean">
-      false
-    </install_recommended>
+    <install_recommended config:type="boolean">false</install_recommended>
     <patterns config:type="list">
       <pattern>base</pattern>
+      <pattern>sw_management</pattern>
+      <pattern>yast2_basis</pattern>
     </patterns>
+
     <packages config:type="list">
+      <package>ca-certificates-mozilla</package>
+      <package>curl</package>
+      <package>dhcp</package>
+      <package>dhcp-client</package>
+      <package>gcc</package>
+      <package>git</package>
+      <package>grub2</package>
+      <package>kernel-devel</package>
+      <package>less</package>
+      <package>make</package>
+      <package>python-xml</package>
+      <package>sudo</package>
       <package>ansible</package>
+      <package>wget</package>
+      <package>vim</package>
+      <package>yast2-services-manager</package>
     </packages>
     <do_online_update config:type="boolean">true</do_online_update>
   </software>
@@ -57,6 +148,12 @@
     <user>
       <encrypted config:type="boolean">false</encrypted>
       <username>root</username>
+      <user_password>packer</user_password>
+    </user>
+
+    <user>
+      <encrypted config:type="boolean">false</encrypted>
+      <username>packer</username>
       <user_password>packer</user_password>
     </user>
   </users>

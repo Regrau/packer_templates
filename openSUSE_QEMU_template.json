@@ -23,7 +23,7 @@
             , "iso_checksum_type": "{{user `iso_checksum_type`}}"
 
             , "output_directory": "output_opensuse_chipnibbles"
-            , "shutdown_command": "shutdown -P now"
+            , "shutdown_command": "echo 'packer' | sudo -S /sbin/halt -p"
             , "format": "qcow2"
             , "headless": true
             , "accelerator": "kvm"
@@ -52,6 +52,16 @@
                 , "lang=en_US autoyast2=http://{{ .HTTPIP}}:{{ .HTTPPort}}/autoinst.xml <wait>"
                 , "textmode=1<wait>"
                 , "<enter><wait>"
+            ]
+        }
+    ],
+
+    "provisioners": [
+        {
+            "execute_command": "echo 'packer' | {{ .Vars }} sudo -S -E bash '{{ .Path}}'",
+            "type": "shell",
+            "scripts": [
+                "scripts/wait.sh"
             ]
         }
     ]
