@@ -136,9 +136,11 @@
       <package>make</package>
       <package>python-xml</package>
       <package>sudo</package>
-      <package>ansible</package>
+      <package>salt</package>
+      <package>docker</package>
       <package>wget</package>
       <package>vim</package>
+      <package>fish</package>
       <package>yast2-services-manager</package>
     </packages>
     <do_online_update config:type="boolean">true</do_online_update>
@@ -153,8 +155,12 @@
 
     <user>
       <encrypted config:type="boolean">false</encrypted>
-      <username>packer</username>
-      <user_password>packer</user_password>
+      <username>salt</username>
+      <user_password>salt</user_password>
+      <uid>1000</uid>
+      <gid>100</gid>
+      <shell>/usr/bin/fish</shell>
+      <home>/home/salt</home>
     </user>
   </users>
 

@@ -3,3 +3,9 @@ packer_cache/
 
 # For built boxes
 *.box
+
+#Remove Authorized_keys file from VCS so everybody can provide his own.
+authorized_keys
+
+#Ignore Output directories
+*output*

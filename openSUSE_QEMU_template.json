@@ -14,10 +14,12 @@
     "builders":
     [
         {
-            "type": "qemu"
-	    , "qemuargs":[
-		    ["-m", "1024M"]
-	    ]
+            "type": "qemu",
+            "name": "Salt Master"
+            , "qemuargs":[
+                ["-m", "2048"]
+                , ["-smp", "2"]
+            ]
             , "iso_url": "{{user `iso_url`}}"
             , "iso_checksum": "{{user `iso_checksum`}}"
             , "iso_checksum_type": "{{user `iso_checksum_type`}}"
@@ -39,7 +41,50 @@
             , "ssh_port": 22
             , "ssh_timeout": "{{user `ssh_timeout`}}"
 
-            , "vm_name": "base_openSUSE_42_3"
+            , "vm_name": "Master_openSUSE_42_3"
+            , "net_device": "virtio-net"
+            , "disk_interface": "virtio"
+            , "disk_size": "{{user `disk_size`}}"
+
+            , "boot_wait": "5s"
+            , "boot_command": [
+                "<esc><enter><wait>"
+                , "linux netdevice=eth0 netsetup=dhcp<wait>"
+                , "install=http://download.opensuse.org/distribution/leap/42.3/repo/oss/ <wait>"
+                , "lang=en_US autoyast2=http://{{ .HTTPIP}}:{{ .HTTPPort}}/autoinst.xml <wait>"
+                , "textmode=1<wait>"
+                , "<enter><wait>"
+            ]
+        }
+        ,{
+            "type": "qemu"
+            , "name": "Salt Minion"
+            , "qemuargs":[
+                ["-m", "2048"]
+                , ["-smp", "2"]
+            ]
+            , "iso_url": "{{user `iso_url`}}"
+            , "iso_checksum": "{{user `iso_checksum`}}"
+            , "iso_checksum_type": "{{user `iso_checksum_type`}}"
+
+            , "output_directory": "output_opensuse_chipnibbles"
+            , "shutdown_command": "echo 'packer' | sudo -S /sbin/halt -p"
+            , "format": "qcow2"
+            , "headless": true
+            , "accelerator": "kvm"
+
+            , "http_directory": "{{user `http_directory`}}"
+            , "http_port_min": 10082
+            , "http_port_max": 10089
+
+            , "ssh_host_port_min": 2222
+            , "ssh_host_port_max": 2229
+            , "ssh_username": "{{user `user`}}"
+            , "ssh_password": "{{user `password`}}"
+            , "ssh_port": 22
+            , "ssh_timeout": "{{user `ssh_timeout`}}"
+
+            , "vm_name": "Minion_openSUSE_42_3"
             , "net_device": "virtio-net"
             , "disk_interface": "virtio"
             , "disk_size": "{{user `disk_size`}}"
