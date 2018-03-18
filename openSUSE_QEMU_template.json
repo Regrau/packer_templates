@@ -103,10 +103,16 @@
 
     "provisioners": [
         {
-            "execute_command": "echo 'packer' | {{ .Vars }} sudo -S -E bash '{{ .Path}}'",
-            "type": "shell",
-            "scripts": [
+            "type": "file"
+            , "source": "served_files/authorized_keys"
+            , "destination": "/tmp/authorized_keys"
+        }
+        , {
+            "execute_command": "echo 'packer' | {{ .Vars }} sudo -S -E bash '{{ .Path}}'"
+            , "type": "shell"
+            , "scripts": [
                 "scripts/wait.sh"
+                , "scripts/sanitize.sh"
             ]
         }
     ]
