@@ -115,5 +115,13 @@
                 , "scripts/sanitize.sh"
             ]
         }
+        , {
+            "execute_command": "echo 'packer' | {{ .Vars }} sudo -S -E bash '{{ .Path}}'"
+            , "type": "shell"
+            , "scripts": [
+                "scripts/set_static_ip.sh"
+            ]
+            , "only": ["Salt Master"]
+        }
     ]
 }
