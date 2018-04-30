@@ -119,9 +119,17 @@
             "execute_command": "echo 'packer' | {{ .Vars }} sudo -S -E bash '{{ .Path}}'"
             , "type": "shell"
             , "scripts": [
-                "scripts/set_static_ip.sh"
+                "scripts/bootstrap_saltmaster.sh"
             ]
             , "only": ["Salt Master"]
+        }
+        , {
+            "execute_command": "echo 'packer' | {{ .Vars }} sudo -S -E bash '{{ .Path}}'"
+            , "type": "shell"
+            , "scripts": [
+                "scripts/bootstrap_saltminion.sh"
+            ]
+            , "only": ["Salt Minion"]
         }
     ]
 }

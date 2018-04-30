@@ -20,7 +20,7 @@
       <hiddenmenu>false</hiddenmenu>
       <lines_cache_id>0</lines_cache_id>
       <os_prober>true</os_prober>
-      <terminal>gfxterm</terminal>
+      <terminal>console</terminal>
       <timeout config:type="integer">5</timeout>
     </global>
 
@@ -86,8 +86,7 @@
     </dhcp_options>
 
     <dns>
-      <hostname>kvm-openSUSE-Leap</hostname>
-      <domain>tesdomain.com</domain>
+      <domain>testdomain.com</domain>
 
       <resolv_conf_policy>auto</resolv_conf_policy>
 
