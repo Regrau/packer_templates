@@ -5,7 +5,7 @@
 
 # Add no password option to SSHD Config file
 echo "PasswordAuthentication no" | sudo tee -a /etc/ssh/sshd_config
-sudo sed -i 's/UsePAM yes/UsePAM no/g'
+sudo sed -i 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config
 
 # No root login via SSH
 echo "PermitRootLogin no" | sudo tee -a /etc/ssh/sshd_config
